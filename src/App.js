@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Accordion from 'react-bootstrap/Accordion';
+import SectionBuilder from './components/SectionBuilder';
+import chapters from './chapters';
 
-function App() {
+import './styles.scss';
+const App = () => {
+  const [loadSection, setLoadSection] = useState(null);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {chapters.map((chapter) => (
+        <React.Fragment key={chapter.number}>
+          <SectionBuilder
+            number={chapter.number}
+            title={chapter.title}
+            section={chapter.sections.map((section) => {
+              const handleActiveKey = (activeKey) => {
+                if (activeKey === section.number) {
+                  setLoadSection([section.component]);
+                } else {
+                  setLoadSection([]);
+                }
+              };
+              return (
+                <React.Fragment key={section.number}>
+                  <SectionBuilder
+                    number={section.number}
+                    title={section.title}
+                    section={loadSection}
+                    currentActiveKey={handleActiveKey}
+                  />
+                </React.Fragment>
+              );
+            })}
+          />
+        </React.Fragment>
+      ))}
+    </>
   );
-}
+};
 
 export default App;
