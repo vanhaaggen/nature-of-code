@@ -23,7 +23,7 @@ const P5_URL = 'https://www.p5js.org/';
 const REACT_URL = 'https://www.reactjs.org/';
 
 const App = () => {
-  const [loadSection, setLoadSection] = useState(null);
+  const [loadSection, setLoadSection] = useState(false);
   return (
     <AppWrapper>
       <section>
@@ -51,9 +51,9 @@ const App = () => {
             section={chapter.sections.map((section) => {
               const handleActiveKey = (activeKey) => {
                 if (activeKey === section.number) {
-                  setLoadSection([section.component]);
+                  setLoadSection(true);
                 } else {
-                  setLoadSection([]);
+                  setLoadSection(false);
                 }
               };
               return (
@@ -61,7 +61,7 @@ const App = () => {
                   <SectionBuilder
                     number={section.number}
                     title={section.title}
-                    section={loadSection}
+                    section={loadSection && section.component}
                     currentActiveKey={handleActiveKey}
                   />
                 </React.Fragment>
