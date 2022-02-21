@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Accordion } from 'react-bootstrap';
 import SectionBuilder from './components/SectionBuilder';
 import chapters from './chapters';
 
@@ -23,7 +24,7 @@ const P5_URL = 'https://www.p5js.org/';
 const REACT_URL = 'https://www.reactjs.org/';
 
 const App = () => {
-  const [loadSection, setLoadSection] = useState(false);
+  const [loadSection, setLoadSection] = useState([]);
   return (
     <AppWrapper>
       <section>
@@ -43,33 +44,40 @@ const App = () => {
           </ColorLink>
         </p>
       </section>
-      {chapters.map((chapter) => (
-        <React.Fragment key={chapter.number}>
-          <SectionBuilder
-            number={chapter.number}
-            title={chapter.title}
-            section={chapter.sections.map((section) => {
-              const handleActiveKey = (activeKey) => {
-                if (activeKey === section.number) {
-                  setLoadSection(true);
-                } else {
-                  setLoadSection(false);
-                }
-              };
-              return (
-                <React.Fragment key={section.number}>
-                  <SectionBuilder
-                    number={section.number}
-                    title={section.title}
-                    section={loadSection && section.component}
-                    currentActiveKey={handleActiveKey}
-                  />
-                </React.Fragment>
-              );
-            })}
-          />
-        </React.Fragment>
-      ))}
+      <Accordion>
+        {chapters.map((chapter) => (
+          <React.Fragment key={chapter.number}>
+            <SectionBuilder
+              number={chapter.number}
+              title={chapter.title}
+              section={
+                <Accordion>
+                  {chapter.sections.map((section) => {
+                    const handleActiveKey = (activeKey) => {
+                      if (activeKey === section.number) {
+                        setLoadSection(section.component);
+                      }
+                      if (activeKey === null) {
+                        setLoadSection([]);
+                      }
+                    };
+                    return (
+                      <React.Fragment key={section.number}>
+                        <SectionBuilder
+                          number={section.number}
+                          title={section.title}
+                          section={loadSection}
+                          currentActiveKey={handleActiveKey}
+                        />
+                      </React.Fragment>
+                    );
+                  })}
+                </Accordion>
+              }
+            />
+          </React.Fragment>
+        ))}
+      </Accordion>
     </AppWrapper>
   );
 };
