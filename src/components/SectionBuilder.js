@@ -17,16 +17,14 @@ const SectionBuilder = ({
   currentActiveKey = () => {}
 }) => {
   return (
-    <Accordion>
-      <Accordion.Item eventKey={number}>
-        <Accordion.Header>
-          <ContextAwareToggle onChange={currentActiveKey}>
-            {title}
-          </ContextAwareToggle>
-        </Accordion.Header>
-        <Accordion.Body>{section}</Accordion.Body>
-      </Accordion.Item>
-    </Accordion>
+    <Accordion.Item eventKey={number}>
+      <Accordion.Header>
+        <ContextAwareToggle onChange={currentActiveKey}>
+          {title}
+        </ContextAwareToggle>
+      </Accordion.Header>
+      <Accordion.Body>{section}</Accordion.Body>
+    </Accordion.Item>
   );
 };
 
