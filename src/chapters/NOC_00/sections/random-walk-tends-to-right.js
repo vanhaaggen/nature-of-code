@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Tabs, Tab } from 'react-bootstrap';
 import { ReactP5Wrapper } from 'react-p5-wrapper';
 import SyntaxHighlighterWrapper from '../../../components/SyntaxHighlightWrapper';
 import GenericWrapper from '../../../components/GenericWrapper';
@@ -254,19 +255,22 @@ const RandomWalk50PercentDesviation = () => {
 };
 
 const RandomWalks = () => {
+  const [key, setKey] = useState('normal');
   return (
-    <>
-      <div>
-        <h5 className="border-bottom">
-          Random Walk with tendency to the right
-        </h5>
+    <Tabs
+      id="controlled"
+      activeKey={key}
+      onSelect={(k) => setKey(k)}
+      className="mb-3">
+      <Tab eventKey="normal" title="Tendency to the rigth">
+        <p className="border-bottom">Random Walk with tendency to the right</p>
         <RandomWalkTendToRight />
-      </div>
-      <div>
-        <h5 className="border-bottom">Random Walk 50% desviation</h5>
+      </Tab>
+      <Tab eventKey="mouse" title="Mouse event">
+        <p>Random Walk that follow the pointer 50% of the time</p>
         <RandomWalk50PercentDesviation />
-      </div>
-    </>
+      </Tab>
+    </Tabs>
   );
 };
 export default RandomWalks;
