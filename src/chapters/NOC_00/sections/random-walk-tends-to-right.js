@@ -141,7 +141,6 @@ const RandomWalk50PercentDesviation = () => {
 
       step() {
         const choice = p5.floor(p5.random(10));
-        console.log(choice);
         if (choice < 5) {
           const r = p5.random(1);
           if (r < 0.5) {
@@ -206,7 +205,6 @@ const RandomWalk50PercentDesviation = () => {
   
         step() {
           const choice = p5.floor(p5.random(10));
-          console.log(choice);
           if (choice < 5) {
             const r = p5.random(1);
             if (r < 0.5) {
