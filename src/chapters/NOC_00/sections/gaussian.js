@@ -327,6 +327,122 @@ const GaussianSplatter = () => {
   );
 };
 
+const GaussianCustomDistribution = () => {
+  const sketch = (p5) => {
+    let color = p5.color(242, 26, 139);
+    let walker;
+    class Walker {
+      constructor() {
+        this.x = p5.width / 2;
+        this.y = p5.height / 2;
+        this.stepSize = 0;
+      }
+
+      render() {
+        const rColor = p5.floor(p5.random(255));
+        color.setRed(rColor);
+        p5.stroke(color);
+        p5.strokeWeight(10);
+        p5.point(this.x, this.y);
+      }
+
+      montecarlo() {
+        const r1 = p5.random(1);
+        const probability = r1;
+        const r2 = p5.random(1);
+
+        if (r2 < probability) {
+          this.stepSize = r1;
+        }
+      }
+
+      step() {
+        this.montecarlo();
+        const stepSize = p5.random(this.stepSize * 20);
+        const stepX = p5.random(-stepSize, stepSize);
+        const stepY = p5.random(-stepSize, stepSize);
+        this.x += stepX;
+        this.y += stepY;
+        this.x = p5.constrain(this.x, 0, p5.width - 1);
+        this.y = p5.constrain(this.y, 0, p5.height - 1);
+      }
+    }
+
+    p5.setup = () => {
+      p5.createCanvas(640, 360);
+      walker = new Walker();
+      p5.background('#e7f1ff');
+    };
+
+    p5.draw = () => {
+      walker.step();
+      walker.render();
+    };
+  };
+
+  const codeString = `
+  const GaussianCustomDistribution = () => {
+    const sketch = (p5) => {
+      let color = p5.color(242, 26, 139);
+      let walker;
+      class Walker {
+        constructor() {
+          this.x = p5.width / 2;
+          this.y = p5.height / 2;
+          this.stepSize = 0;
+        }
+  
+        render() {
+          const rColor = p5.floor(p5.random(255));
+          color.setRed(rColor);
+          p5.stroke(color);
+          p5.strokeWeight(10);
+          p5.point(this.x, this.y);
+        }
+  
+        montecarlo() {
+          const r1 = p5.random(1);
+          const probability = r1;
+          const r2 = p5.random(1);
+  
+          if (r2 < probability) {
+            this.stepSize = r1;
+          }
+        }
+  
+        step() {
+          this.montecarlo();
+          const stepSize = p5.random(this.stepSize * 20);
+          const stepX = p5.random(-stepSize, stepSize);
+          const stepY = p5.random(-stepSize, stepSize);
+          this.x += stepX;
+          this.y += stepY;
+          this.x = p5.constrain(this.x, 0, p5.width - 1);
+          this.y = p5.constrain(this.y, 0, p5.height - 1);
+        }
+      }
+  
+      p5.setup = () => {
+        p5.createCanvas(640, 360);
+        walker = new Walker();
+        p5.background('#e7f1ff');
+      };
+  
+      p5.draw = () => {
+        walker.step();
+        walker.render();
+      };
+    };
+  `;
+  return (
+    <GenericWrapper>
+      <ReactP5Wrapper sketch={sketch} />
+
+      <SyntaxHighlighterWrapper>{codeString}</SyntaxHighlighterWrapper>
+    </GenericWrapper>
+  );
+};
+
 const GaussianDistribution = () => {
   const [key, setKey] = useState('normal');
   return (
@@ -350,6 +466,10 @@ const GaussianDistribution = () => {
       <Tab eventKey="size" title="NDRN size">
         <p>NDRN unifiying splatter effect with increasing random size</p>
         <GaussianRSize />
+      </Tab>
+      <Tab eventKey="custom" title="CDRN step size">
+        <p>Custom distribution of random numbers to vary the size of a step</p>
+        <GaussianCustomDistribution />
       </Tab>
     </Tabs>
   );

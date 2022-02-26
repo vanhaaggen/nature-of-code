@@ -28,17 +28,14 @@ const RandomWalkTraditional = () => {
         const choice = p5.floor(p5.random(4));
         if (choice === 0) {
           this.x += 3;
-          this.randomColor();
         } else if (choice == 1) {
           this.x -= 3;
-          this.randomColor();
         } else if (choice == 2) {
           this.y += 3;
-          this.randomColor();
         } else {
           this.y -= 3;
-          this.randomColor();
         }
+        this.randomColor();
         this.x = p5.constrain(this.x, 0, p5.width - 1);
         this.y = p5.constrain(this.y, 0, p5.height - 1);
       }
@@ -82,17 +79,14 @@ const RandomWalkTraditional = () => {
           const choice = p5.floor(p5.random(4));
           if (choice === 0) {
             this.x += 3;
-            this.randomColor();
           } else if (choice == 1) {
             this.x -= 3;
-            this.randomColor();
           } else if (choice == 2) {
             this.y += 3;
-            this.randomColor();
           } else {
             this.y -= 3;
-            this.randomColor();
           }
+          this.randomColor();
           this.x = p5.constrain(this.x, 0, p5.width - 1);
           this.y = p5.constrain(this.y, 0, p5.height - 1);
         }
