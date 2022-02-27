@@ -63,12 +63,16 @@ const App = () => {
                     };
                     return (
                       <React.Fragment key={section.number}>
-                        <SectionBuilder
-                          number={section.number}
-                          title={section.title}
-                          section={loadSection}
-                          currentActiveKey={handleActiveKey}
-                        />
+                        {loadSection ? (
+                          <SectionBuilder
+                            number={section.number}
+                            title={section.title}
+                            section={loadSection}
+                            currentActiveKey={handleActiveKey}
+                          />
+                        ) : (
+                          <div></div>
+                        )}
                       </React.Fragment>
                     );
                   })}
