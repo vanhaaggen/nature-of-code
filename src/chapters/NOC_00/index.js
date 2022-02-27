@@ -22,8 +22,8 @@ const sections = [
     component: <RandomWalkRightTrend />
   },
   { number: '004', title: 'Gaussian', component: <Gaussian /> },
-  { number: '005', title: 'Noise walk', component: <NoiseWalk /> },
-  { number: '006', title: '2D Perlin Noise', component: <TwoDPerlinNoise /> }
+  { number: '005', title: 'Noise walk', component: <NoiseWalk /> }
+  //{ number: '006', title: '2D Perlin Noise', component: <TwoDPerlinNoise /> }
 ];
 
 export default sections;
